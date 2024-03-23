@@ -26,7 +26,7 @@ public class ScrapingFerrolux {
 //        System.out.println(datosProducto);
 //    }
 
-    private static List<String> obtenerEnlacesProductosFerrolux(String url) {
+    public static List<String> obtenerEnlacesProductosFerrolux(String url) {
         try {
             // Realizar la petición GET
             Document doc = Jsoup.connect(url).get();
@@ -59,7 +59,7 @@ public class ScrapingFerrolux {
         }
     }
 
-    private static Map<String, String> extraerAtributosProducto(String urlProducto) {
+    public static Map<String, String> extraerAtributosProducto(String urlProducto) {
         try {
             // Realizar la petición GET
             Document doc = Jsoup.connect(urlProducto).get();
@@ -96,7 +96,7 @@ public class ScrapingFerrolux {
 
             // Crear un mapa con los datos del producto
             Map<String, String> datosProducto = new HashMap<>();
-            datosProducto.put("codigo_producto", codigoProducto);
+            datosProducto.put("code", codigoProducto);
             datosProducto.put("portaLampara", portaLampara);
             datosProducto.put("descripcion", descripcion);
             datosProducto.put("colores", String.join(",", colores));

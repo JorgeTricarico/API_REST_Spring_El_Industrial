@@ -1,8 +1,10 @@
 package com.products.backend.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
@@ -17,29 +19,36 @@ import java.util.Map;
 @AllArgsConstructor
 @Document(collection="Products")
 public class Product {
-    @MongoId
-    private Long id; // Auto-generated
+    //@MongoId
+    @Id
+    private String id; // Auto-generated
 
     //private String name; // Scraping
-
+    @JsonProperty
     private String code; // Excel
 
+    @JsonProperty
     private String description; // Excel
 
+    @JsonProperty
     private Double price; // Excel
 
-    private List<String> characteristics;
+    @JsonProperty
+    private Map<String, String> characteristics;
 
+    @JsonProperty
     private Integer stock; // Auto-generated
 
+    @JsonProperty
     private Boolean isDeleted; // Soft Delete
 
+    @JsonProperty
     private LocalDateTime createdAt; // Auto-generated
 
+    @JsonProperty
     private LocalDateTime updatedAt; // Auto-generated
 
-    public Product(Long id, String code, String description, Double price, List<String> characteristics, Integer stock) {
-        this.id = id;
+    public Product(String code, String description, Double price, Map<String,String> characteristics) {
         this.code = code;
         this.description = description;
         this.price = price;
@@ -47,7 +56,7 @@ public class Product {
         this.stock = 0;
         this.isDeleted = Boolean.FALSE;
         this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();;
+        this.updatedAt = LocalDateTime.now();
     }
 
     //    private String urlProduct; // Scraping

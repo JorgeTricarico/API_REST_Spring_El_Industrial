@@ -8,6 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface IProductMongoRepository extends MongoRepository<Product, String> {
-    public Optional<Product> findById(Integer id);
+    public Optional<Product> findByCode(String code);
     public void deleteById(Integer id);
 }

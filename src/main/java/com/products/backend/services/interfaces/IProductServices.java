@@ -1,17 +1,24 @@
 package com.products.backend.services.interfaces;
 
+import com.products.backend.domain.Product;
+import com.products.backend.repositories.database.IProductMongoRepository;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public interface IProductServices {
+
     static final String URL_BASE = "https://ferrolux.com.ar";
+
     public static void test() {
         // Obtener la lista de URLs de productos
         List<String> urlsProductos = obtenerEnlacesProductosFerrolux(URL_BASE + "/productos/todos");
@@ -98,12 +105,14 @@ public interface IProductServices {
             datosProducto.put("code", codigoProducto);
             datosProducto.put("portaLampara", portaLampara);
             datosProducto.put("description", descripcion);
-            datosProducto.put("colors", String.join(",", colores));
-            datosProducto.put("estilo", estilo);
-            datosProducto.put("urls_imagenes", String.join(",", urlsImagenes));
-            datosProducto.put("precio", precio);
-            datosProducto.put("url_producto", urlProducto);
-            datosProducto.put("lista", "iluminacion");
+//            datosProducto.put("colors", String.join(",", colores));
+//            datosProducto.put("estilo", estilo);
+//            datosProducto.put("urls_imagenes", String.join(",", urlsImagenes));
+//            datosProducto.put("precio", precio);
+//            datosProducto.put("url_producto", urlProducto);
+//            datosProducto.put("lista", "iluminacion");
+
+            Product product = new Product(codigoProducto, descripcion ,0.0, null);
 
             return datosProducto;
         } catch (Exception e) {
