@@ -1,7 +1,7 @@
 package com.products.backend.services.implemetantions;
 
 import com.products.backend.domain.Product;
-import com.products.backend.repositories.database.IProductMongoRepository;
+import com.products.backend.repositories.database.IProductJpaRepository;
 import com.products.backend.services.interfaces.IProductServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import java.util.Optional;
 public class ProductServices implements IProductServices {
 
     @Autowired
-    private IProductMongoRepository repo;
+    private IProductJpaRepository repo;
 
     @Autowired
     private ScrapingFerrolux scraping;
@@ -48,7 +48,7 @@ public class ProductServices implements IProductServices {
     }
     public Optional<Product> getProdcut(String code){
 
-        return repo.findByCode(code);
+        return repo.findByCodeIgnoreCase(code);
     }
 
 
