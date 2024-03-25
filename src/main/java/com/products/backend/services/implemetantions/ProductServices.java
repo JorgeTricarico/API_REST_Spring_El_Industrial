@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -23,7 +24,7 @@ public class ProductServices implements IProductServices {
 
         Product product = new Product();
 
-        for (Map.Entry<String, String> entry : atributesProduct.entrySet()) {
+        for (Map.Entry<String, String> entry : Objects.requireNonNull(atributesProduct).entrySet()) {
             String attributeName = entry.getKey();
             String attributeValue = entry.getValue();
 
@@ -43,8 +44,10 @@ public class ProductServices implements IProductServices {
                     product.getCharacteristics().put(attributeName, attributeValue);
                     break;
             }
-
         }
+
+        // Guardar el producto en la base de datos
+        repo.save(product);
     }
     public Optional<Product> getProdcut(String code){
 

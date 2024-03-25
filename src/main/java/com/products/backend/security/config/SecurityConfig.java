@@ -8,7 +8,6 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -77,11 +76,12 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authRequest ->
-                        authRequest.requestMatchers("/auth/**", "/docs", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
-                                .requestMatchers(HttpMethod.GET).permitAll()
-                                .anyRequest().authenticated()
-                )
+// Comentar o eliminar la siguiente línea para permitir todas las solicitudes sin autenticación
+//                .authorizeHttpRequests(authRequest ->
+//                        authRequest.requestMatchers("/auth/**", "/docs", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
+//                                .requestMatchers(HttpMethod.GET).permitAll()
+//                                .anyRequest().authenticated()
+//                )
                 .sessionManagement(sessionManager ->
                         sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(this.jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
